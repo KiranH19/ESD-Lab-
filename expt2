@@ -1,0 +1,15 @@
+        AREA MULTIPLY, CODE, READONLY
+        ENTRY
+        EXPORT __main
+
+__main
+
+        LDR     R1, =0x1234     ; Load first number
+        LDR     R2, =0x1234     ; Load second number
+
+        MUL     R3, R1, R2      ; Multiply R1 and R2
+
+L1
+        B       L1              ; Stop program here
+
+        END

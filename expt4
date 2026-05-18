@@ -1,0 +1,22 @@
+        AREA FACT, CODE, READONLY
+        ENTRY
+        EXPORT __main
+
+__main
+
+        MOV     R0, #5          ; Number
+        MOV     R1, #1          ; Factorial result
+
+        CMP     R0, #0
+        BEQ     STOP
+
+NEXT
+        MUL     R1, R1, R0      ; R1 = R1 × R0
+        SUBS    R0, R0, #1      ; Decrement R0
+        CMP     R0, #0
+        BNE     NEXT
+
+STOP
+        NOP
+
+        END

@@ -1,0 +1,33 @@
+        AREA SQUARE, CODE, READONLY
+        ENTRY
+        EXPORT __main
+
+__main
+
+        LDR     R0, =TABLE1         ; Load address of lookup table
+        MOV     R1, #6              ; Number whose square is needed
+
+        MOV     R1, R1, LSL #2      ; Offset = number × 4
+        ADD     R0, R0, R1          ; Address of required element
+
+        LDR     R3, [R0]            ; Load square into R3
+
+STOP
+        B       STOP
+
+; Lookup table for squares from 0 to 10
+
+TABLE1
+        DCD     0x00000000          ; 0² = 0
+        DCD     0x00000001          ; 1² = 1
+        DCD     0x00000004          ; 2² = 4
+        DCD     0x00000009          ; 3² = 9
+        DCD     0x00000010          ; 4² = 16
+        DCD     0x00000019          ; 5² = 25
+        DCD     0x00000024          ; 6² = 36
+        DCD     0x00000031          ; 7² = 49
+        DCD     0x00000040          ; 8² = 64
+        DCD     0x00000051          ; 9² = 81
+        DCD     0x00000064          ; 10² = 100
+
+        END

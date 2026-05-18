@@ -1,0 +1,46 @@
+        AREA LARGEST, CODE, READONLY
+        ENTRY
+        EXPORT __main
+
+__main
+
+        MOV     R5, #6              ; Counter for remaining elements
+        LDR     R1, =VALUE1         ; Address of array
+
+        LDR     R2, [R1], #4        ; Load first number
+
+LOOP
+        LDR     R4, [R1], #4        ; Load next number
+        CMP     R2, R4              ; Compare numbers
+
+        BHI     LOOP1               ; If R2 > R4, skip update
+        MOV     R2, R4              ; Else move larger value to R2
+
+LOOP1
+        SUBS    R5, R5, #1          ; Decrement counter
+        CMP     R5, #0
+        BNE     LOOP                ; Repeat until counter = 0
+
+        LDR     R4, =RESULT         ; Address to store result
+        STR     R2, [R4]            ; Store largest number
+
+STOP
+        B       STOP
+
+; Array of 32-bit numbers
+
+VALUE1
+        DCD     0x44444444
+        DCD     0x22222222
+        DCD     0x11111111
+        DCD     0x33333333
+        DCD     0xAAAAAAAA
+        DCD     0x88888888
+        DCD     0x99999999
+
+        AREA DATA2, DATA, READWRITE
+
+RESULT
+        DCD     0x0
+
+        END

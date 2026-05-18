@@ -1,0 +1,43 @@
+        AREA SEARCH1, CODE, READONLY
+        ENTRY
+        EXPORT __main
+
+__main
+
+        MOV     R5, #2              ; Number count
+        MOV     R0, #0              ; Zero count
+        MOV     R1, #0              ; One count
+
+        LDR     R2, VALUE1          ; Load first number
+
+SECOND
+        MOV     R3, #32             ; Bit counter
+
+NEXT
+        MOVS    R2, R2, ROR #1      ; Rotate right through carry
+        BLO     ZERO                ; If carry = 0
+
+        ADD     R1, R1, #1          ; Count ones
+        B       LAST
+
+ZERO
+        ADD     R0, R0, #1          ; Count zeros
+
+LAST
+        SUBS    R3, R3, #1
+        BNE     NEXT
+
+        LDR     R2, VALUE2          ; Load second number
+        SUBS    R5, R5, #1
+        BNE     SECOND
+
+STOP
+        B       STOP
+
+VALUE1
+        DCD     0x1234567A          ; First number
+
+VALUE2
+        DCD     0x1234567A          ; Second number
+
+        END
